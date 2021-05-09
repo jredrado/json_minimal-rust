@@ -5,6 +5,9 @@ extern crate alloc;
 use alloc::vec::Vec;
 use alloc::string::String;
 use alloc::boxed::Box;
+use alloc::format;
+
+use core::primitive::char;
 
 #[derive(Debug)]
 pub enum Json {
@@ -651,7 +654,7 @@ impl Json {
                 let hex = (&input[*incr + 1..*incr + 5]).to_vec();
                 let hex = String::from_utf8(hex).map_err(|_| (*incr, BAD_UNICODE))?;
                 let value = u16::from_str_radix(&hex, 16).map_err(|_| (*incr, BAD_UNICODE))?;
-                let value = std::char::from_u32(value as u32).ok_or((*incr, BAD_UNICODE))?;
+                let value = char::from_u32(value as u32).ok_or((*incr, BAD_UNICODE))?;
 
                 let mut buffer = [0; 4];
                 result.extend(value.encode_utf8(&mut buffer).as_bytes());
