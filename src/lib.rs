@@ -312,31 +312,46 @@ impl Json {
 
         match self {
             Json::OBJECT { name, value } => {
-                result.push_str(&format!("\"{}\":{}", name, value.print()));
+                let value_print = value.print();
+                if !value_print.is_empty() {
+                    result.push_str(&format!("\"{}\":{}", name, value_print));
+                }
             }
             Json::JSON(values) => {
-                result.push('{');
 
-                for n in 0..values.len() {
-                    result.push_str(&values[n].print());
-                    result.push(',');
+                if !values.is_empty() {
+                    result.push('{');
+
+                    for n in 0..values.len() {
+                        let value_print = &values[n].print();
+                        if !value_print.is_empty() {
+                            result.push_str(value_print);
+                            result.push(',');
+                        }
+                    }
+
+                    result.pop();
+
+                    result.push('}');
                 }
-
-                result.pop();
-
-                result.push('}');
             }
             Json::ARRAY(values) => {
-                result.push('[');
 
-                for n in 0..values.len() {
-                    result.push_str(&values[n].print());
-                    result.push(',');
+                if !values.is_empty() {
+                    result.push('[');
+
+                    for n in 0..values.len() {
+                        let value_print = &values[n].print();
+                        if !value_print.is_empty() {
+                            result.push_str(value_print);
+                            result.push(',');
+                        }
+                    }
+
+                    result.pop();
+
+                    result.push(']');
                 }
-
-                result.pop();
-
-                result.push(']');
             }
             Json::STRING(val) => {
                 result.push_str(&format!("\"{}\"", val));
