@@ -1,14 +1,3 @@
-#![feature(core_intrinsics,lang_items,start,default_alloc_error_handler,custom_test_frameworks)]
-#![no_std]
-
-extern crate alloc;
-use alloc::vec::Vec;
-use alloc::string::String;
-use alloc::boxed::Box;
-use alloc::format;
-
-use core::primitive::char;
-
 #[derive(Debug)]
 pub enum Json {
     OBJECT { name: String, value: Box<Json> },
