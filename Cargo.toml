@@ -1,6 +1,6 @@
 [package]
 name = "json_minimal"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["36den","jredrado"]
 edition = "2018"
 description = "A minimal json crate."
